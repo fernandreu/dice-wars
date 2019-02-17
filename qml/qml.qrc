@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Game.qml</file>
+        <file>Menu.qml</file>
+    </qresource>
+</RCC>
