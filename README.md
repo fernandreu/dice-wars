@@ -1,9 +1,9 @@
 Dice Wars (Reloaded)
 --------------------
 
-This is a remake of the [classic Flash game](https://www.gamedesign.jp/flash/dice/dice.html) by [GAMEDESIGN](https://www.gamedesign.jp/) using Qt (C++/QML).
+Dice Wars (Reloaded) is a remake of the [classic Flash game](https://www.gamedesign.jp/flash/dice/dice.html) by [GAMEDESIGN](https://www.gamedesign.jp/) using Qt (C++/QML).
 
-The game has been developed for Windows Desktop. Other platforms could work as well; however, please keep in mind that these have not been tested.
+The game was mostly developed in 2015 with Windows Desktop as target platform. Please keep this in mind if attempting to run the game in any other untested platform.
 
 
 Download
