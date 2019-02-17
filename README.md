@@ -5,11 +5,14 @@ This is a remake of the [classic Flash game](https://www.gamedesign.jp/flash/dic
 
 The game has been developed for Windows Desktop. Other platforms could work as well; however, please keep in mind that these have not been tested.
 
+
 Download
 --------
 
-Check the latest release:
-TBD
+Check the files attached to the latest release at the following link:
+
+https://github.com/fernandreu/dice-wars/releases/latest
+
 
 Screenshots
 -----------
