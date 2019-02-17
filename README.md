@@ -9,7 +9,7 @@ The game was mostly developed in 2015 with Windows Desktop as target platform. P
 Download
 --------
 
-Check the files attached to the latest release at the following link:
+The latest Windows Desktop build is attached to the latest release at the following link:
 
 https://github.com/fernandreu/dice-wars/releases/latest
 
