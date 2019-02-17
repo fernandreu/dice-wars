@@ -1,5 +1,5 @@
-Dice Wars
----------
+Dice Wars (Reloaded)
+--------------------
 
 This is a remake of the [classic Flash game](https://www.gamedesign.jp/flash/dice/dice.html) by [GAMEDESIGN](https://www.gamedesign.jp/) using Qt (C++/QML).
 
