@@ -69,6 +69,7 @@ bool Hex::isIsolated()
 
 void Hex::resize()
 {
+    // The 1.2 and 2.4 factors come from simple hexagon trigonometry
     setX(center_.x() - radius_*1.2);
     setY(center_.y() - radius_*1.2);
     setZ(-1); //Selected territories will overwrite this to 0

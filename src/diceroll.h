@@ -5,6 +5,8 @@
 
 #include "player.h"
 
+/// This class controls the display of a group of dice representing a score in the game. It
+/// controls such roll for both the left and the right player simultaneously
 class DiceRoll final : public QQuickPaintedItem
 {
     Q_OBJECT

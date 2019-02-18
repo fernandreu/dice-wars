@@ -5,17 +5,23 @@
 
 class Territory;
 
+/// This class represents a single hexagon in the grid
 class Hex : public QQuickPaintedItem
 {
     Q_OBJECT
     Q_PROPERTY(QPointF center READ center WRITE setCenter)
     Q_PROPERTY(qreal radius READ radius WRITE setRadius)
 
+    /// The center of the Hex, in pixel coordinates
     QPointF center_;
+
+    /// The radius of the Hex, in pixel coordinates
     qreal radius_ = 10;
+
+    /// The Territory this Hex belongs to
     Territory *territory_;
 
-    //In axial coordinates
+    /// The posiiton inside the HexGrid, in axial coordinates
     QPair<int, int> gridPosition_;
 
     void resize();
@@ -37,6 +43,7 @@ public:
     QPair<int, int> gridPosition() const;
     void setGridPosition(const QPair<int, int> &gridPosition);
 
+    /// Returns whether this Hex is not part of a Territory which contains other Hex instances
     bool isIsolated();
 
 signals:

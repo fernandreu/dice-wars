@@ -10,6 +10,7 @@
 #include <QtMath>
 #include <QTimer>
 
+/// This class represents the full grid of hexagons that constitute the board of the game
 class HexGrid : public QQuickItem
 {
     Q_OBJECT
@@ -31,18 +32,25 @@ class HexGrid : public QQuickItem
     int numTerritories_ = 1;
     int territorySize_ = 20;
 
+    /// Number of players that started playing (not necessarily the ones still playing)
     int numPlayers_;
 
     /// Index indicating whose's turn is now
     int playerTurn_;
 
+    /// Number of user-controlled players still playing the game
     int humansLeft_;
 
+    /// Number of both AI- and user-controlled players still playing the game
     int playersLeft_;
 
     Territory *selectedTerritory_, *otherTerritory_;
+
+    /// The list of players
     QList<Player *> players_;
+
     QList<Territory *> territories_;
+
     QHash<QPair<int, int>, Hex *> map_;
 
     static const int DIRECTIONS[][2];

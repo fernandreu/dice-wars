@@ -7,6 +7,8 @@
 
 class Player;
 
+/// This class represents a fixed group of Hex cells. Any player can own it, it has
+/// dice (with a minimum of 1) and can attack other territories owned by other players
 class Territory : public QQuickPaintedItem
 {
     Q_OBJECT
@@ -16,13 +18,15 @@ class Territory : public QQuickPaintedItem
     /// Determines whether the territory is selected or not (if selected, it is also drawn differently)
     bool selected_ = false;
 
+    /// The center of the territory, defined as the point where the dice will be placed
     QPointF center_;
 
     int numDice_ = 1;
 
+    /// The Hex cells this territory is made of. Once initialized at the game start, the list will not change
     QList<Hex *> cells_;
 
-    /// Neighbours of this territory
+    /// Other territories adjacent to this one. Once precalculated at the game start, the list will not change
     QList<Territory *> neighbours_;
 
     /// To regenerate neighbours. The appendCell function is usually capable of generating the neighbours without using this
