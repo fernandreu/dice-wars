@@ -1,5 +1,7 @@
 #include "diceroll.h"
 
+#include "player.h"
+
 #include <QPainter>
 
 DiceRoll::DiceRoll(QQuickItem* parent) : QQuickPaintedItem(parent)

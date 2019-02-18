@@ -40,7 +40,7 @@ public:
     Territory *territory() const;
     void setTerritory(Territory *territory);
 
-    QPair<int, int> gridPosition() const;
+    const QPair<int, int>& gridPosition() const;
     void setGridPosition(const QPair<int, int> &gridPosition);
 
     /// Returns whether this Hex is not part of a Territory which contains other Hex instances

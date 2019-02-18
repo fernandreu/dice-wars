@@ -3,7 +3,7 @@
 
 #include <QtQuick/QQuickPaintedItem>
 
-#include "player.h"
+class Player;
 
 /// This class controls the display of a group of dice representing a score in the game. It
 /// controls such roll for both the left and the right player simultaneously
@@ -11,8 +11,8 @@ class DiceRoll final : public QQuickPaintedItem
 {
     Q_OBJECT
     
-    QList<int> leftDice_;
-    QList<int> rightDice_;
+    QVector<int> leftDice_;
+    QVector<int> rightDice_;
     Player *leftOwner_ = nullptr;
     Player *rightOwner_ = nullptr;
 

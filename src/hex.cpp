@@ -1,5 +1,8 @@
 #include "hex.h"
+
 #include "hexgrid.h"
+#include "territory.h"
+#include "player.h"
 
 #include <QPen>
 #include <QPainter>
@@ -43,7 +46,7 @@ void Hex::setTerritory(Territory *territory)
     territory_ = territory;
 }
 
-QPair<int, int> Hex::gridPosition() const
+const QPair<int, int>& Hex::gridPosition() const
 {
     return gridPosition_;
 }

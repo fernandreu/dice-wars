@@ -4,7 +4,7 @@
 #include <QColor>
 #include <QPixmap>
 
-#include "territory.h"
+class Territory;
 
 /// This class controls all statistics and actions that a player sees / can perform
 class Player
@@ -16,10 +16,10 @@ class Player
     QColor color_;
     
     /// The number of territories that this player controls
-    QList<Territory *> territories_;
+    QVector<Territory *> territories_;
 
     /// The 6 images of the dice used by this player with each possible side up
-    QList<QSharedPointer<QPixmap>> pixmaps_;
+    QVector<QSharedPointer<QPixmap>> pixmaps_;
 
     /// Calculates the maximum number of contiguous territories that this player has. This will be used
     /// to determine the amount of dice that will be given to him after each turn
@@ -66,7 +66,8 @@ public:
     bool human() const;
     void setHuman(bool human);
 
-    const QList<Territory *>& territories() const;
+    // This getter is defined here to ensure auto works
+    const auto& territories() const { return territories_; }
 };
 
 #endif // PLAYER_H

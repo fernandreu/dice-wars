@@ -1,5 +1,7 @@
 #include "player.h"
 
+#include "territory.h"
+
 #include <functional>
 
 QColor Player::color() const
@@ -24,6 +26,8 @@ void Player::appendTerritory(Territory *territory)
 void Player::removeTerritory(Territory *territory)
 {
     if (territory == nullptr) return;
+    // The removeAll() method might be a bit slow when using a QVector, but otherwise
+    // the at() method in distributeDice() would be even slower
     territories_.removeAll(territory);
     territory->setOwner(nullptr);
     calculateConnTerr();
@@ -126,10 +130,6 @@ bool Player::human() const
 void Player::setHuman(bool human)
 {
     human_ = human;
-}
-const QList<Territory *>& Player::territories() const
-{
-    return territories_;
 }
 
 int Player::remainingDice() const

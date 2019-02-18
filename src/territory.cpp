@@ -1,6 +1,8 @@
 #include "territory.h"
+
 #include "player.h"
 #include "hexgrid.h"
+#include "hex.h"
 
 #include <QDebug>
 #include <QPainter>
@@ -229,11 +231,6 @@ int Territory::addDice(int numDice)
 {
     setNumDice(numDice_ + numDice);
     return numDice_;
-}
-
-const QList<Territory *> & Territory::neighbours() const
-{
-    return neighbours_;
 }
 
 bool Territory::selected() const

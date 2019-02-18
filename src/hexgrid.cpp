@@ -1,5 +1,9 @@
 #include "hexgrid.h"
+
 #include "hex.h"
+#include "player.h"
+#include "territory.h"
+#include "diceroll.h"
 
 #include <QtMath>
 #include <QTime>
@@ -354,12 +358,12 @@ void HexGrid::startAITurn()
     timer_.setSingleShot(true);
     timer_.start(static_cast<int>(AI_STEP_INTERVAL  / gameSpeed_));
 }
-QList<bool> HexGrid::humanList() const
+QVector<bool> HexGrid::humanList() const
 {
     return humanList_;
 }
 
-void HexGrid::setHumanList(const QList<bool> &humanList)
+void HexGrid::setHumanList(const QVector<bool> &humanList)
 {
     humanList_ = humanList;
 }
@@ -495,11 +499,6 @@ void HexGrid::growPlayer()
     emit playerTurnChanged();
 
     if (!players_.at(playerTurn_)->human()) startAITurn();
-}
-
-QHash<QPair<int, int>, Hex *> HexGrid::map() const
-{
-    return map_;
 }
 
 Hex *HexGrid::neighbour(Hex *hex, int direction) const

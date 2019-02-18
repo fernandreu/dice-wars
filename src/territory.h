@@ -3,8 +3,7 @@
 
 #include <QtQuick/QQuickPaintedItem>
 
-#include "hex.h"
-
+class Hex;
 class Player;
 
 /// This class represents a fixed group of Hex cells. Any player can own it, it has
@@ -24,10 +23,10 @@ class Territory : public QQuickPaintedItem
     int numDice_ = 1;
 
     /// The Hex cells this territory is made of. Once initialized at the game start, the list will not change
-    QList<Hex *> cells_;
+    QVector<Hex *> cells_;
 
     /// Other territories adjacent to this one. Once precalculated at the game start, the list will not change
-    QList<Territory *> neighbours_;
+    QVector<Territory *> neighbours_;
 
     /// To regenerate neighbours. The appendCell function is usually capable of generating the neighbours without using this
     void regenerateNeighbours();
@@ -63,7 +62,8 @@ public:
     /// Quick function to add a number of dice to the territory
     int addDice(int numDice);
 
-    const QList<Territory *> & neighbours() const;
+    // This getter is defined here to ensure auto works
+    const auto& neighbours() const { return neighbours_; }
 
     bool selected() const;
     void setSelected(bool selected);

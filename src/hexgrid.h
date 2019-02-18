@@ -1,14 +1,17 @@
 #ifndef HEXGRID_H
 #define HEXGRID_H
 
-#include "player.h"
-#include "territory.h"
-#include "hex.h"
-#include "diceroll.h"
-
 #include <QQuickItem>
 #include <QtMath>
 #include <QTimer>
+#include <QHash>
+#include <QList>
+#include <QPair>
+
+class DiceRoll;
+class Hex;
+class Territory;
+class Player;
 
 /// This class represents the full grid of hexagons that constitute the board of the game
 class HexGrid : public QQuickItem
@@ -24,7 +27,7 @@ class HexGrid : public QQuickItem
     Q_PROPERTY(bool cheatMode READ cheatMode WRITE setCheatMode)
     Q_PROPERTY(qreal gameSpeed READ gameSpeed WRITE setGameSpeed)
 
-    Q_PROPERTY(QList<bool> humanList READ humanList WRITE setHumanList)
+    Q_PROPERTY(QVector<bool> humanList READ humanList WRITE setHumanList)
 
     int gridWidth_ = 60;
     int gridHeight_ = 40;
@@ -47,9 +50,9 @@ class HexGrid : public QQuickItem
     Territory *selectedTerritory_, *otherTerritory_;
 
     /// The list of players
-    QList<Player *> players_;
+    QVector<Player *> players_;
 
-    QList<Territory *> territories_;
+    QVector<Territory *> territories_;
 
     QHash<QPair<int, int>, Hex *> map_;
 
@@ -87,7 +90,7 @@ class HexGrid : public QQuickItem
     /// Play automatically for a human player as if it was an AI player. It is disconnected after the turn ends
     bool autoMode_ = false;
 
-    QList<bool> humanList_;
+    QVector<bool> humanList_;
 
     DiceRoll *diceRoll_ = nullptr;
 
@@ -107,7 +110,8 @@ public:
     int numPlayers() const;
     void setNumPlayers(int numPlayers);
 
-    QHash<QPair<int, int>, Hex *> map() const;
+    // This getter is defined here to ensure auto works
+    auto map() const { return map_; }
 
     Hex *neighbour(Hex *hex, int direction) const;
 
@@ -126,8 +130,8 @@ public:
     qreal gameSpeed() const;
     void setGameSpeed(const qreal &gameSpeed);
 
-    QList<bool> humanList() const;
-    void setHumanList(const QList<bool> &humanList);
+    QVector<bool> humanList() const;
+    void setHumanList(const QVector<bool> &humanList);
 
 signals:
     void showAttackResult(int attack, int defense);
