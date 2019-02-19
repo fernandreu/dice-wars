@@ -18,6 +18,7 @@ Rectangle {
 
     color: "white";
 
+    /// The board of the game itself
     HexGrid {
         id: hexGrid;
 
@@ -55,8 +56,11 @@ Rectangle {
         onPlayerTurnChanged: {
             var index = playerTurn - 1;
             if (index < 0) index = numPlayers - 1;
-            for (var i = 0; i < parent.numPlayers; i++) playerLabels.itemAt(i).color = "transparent";
+            // Disable all player lables, activating only the one for the new player
+            for (var i = 0; i < parent.numPlayers; i++)
+                playerLabels.itemAt(i).color = "transparent";
             playerLabels.itemAt(playerTurn).color = "yellow";
+            // Toggle buttons / hints depending on whether the new player is human
             if (isPlayerHuman(playerTurn)) {
                 btnEndTurn.visible = true;
                 btnAutoMode.visible = true;
@@ -74,10 +78,13 @@ Rectangle {
 
         function restartGame() {
             initializeGrid();
-            for (var i = 0; i < hexGrid.numPlayers; i++) playerLabels.itemAt(i).human = hexGrid.isPlayerHuman(i);
+            for (var i = 0; i < hexGrid.numPlayers; i++)
+                playerLabels.itemAt(i).human = hexGrid.isPlayerHuman(i);
         }
     }
 
+    /// Simple MouseArea covering the game board to detect all clicks and pass
+    /// them through the board itself
     MouseArea {
         anchors.fill: hexGrid;
 
@@ -86,6 +93,7 @@ Rectangle {
         }
     }
 
+    /// Text block containing useful tips and messages depending on the game status
     Text {
         id: statusMessage;
 
@@ -102,6 +110,7 @@ Rectangle {
         font.pointSize: 24;
     }
 
+    /// Portion of the bottom of the screen which will hold the scores of each player
     Row {
         anchors.bottom: statusMessage.top;
         anchors.bottomMargin: 0;
@@ -160,6 +169,7 @@ Rectangle {
         }
     }
 
+    /// Button to go back to the main menu
     Rectangle {
         id: btnMainMenu;
 
@@ -206,6 +216,7 @@ Rectangle {
         }
     }
 
+    /// Button to restart the game without going through the main menu
     Rectangle {
         id: btnRestart;
 
@@ -254,6 +265,8 @@ Rectangle {
         }
     }
 
+    /// Button to finish a human turn once they cannot / do not want to perform
+    /// any more actions
     Rectangle {
         id: btnEndTurn;
 
@@ -300,6 +313,7 @@ Rectangle {
         }
     }
 
+    /// Button that, when toggled, causes human turns to be played automatically
     Rectangle {
         id: btnAutoMode;
 
@@ -348,6 +362,8 @@ Rectangle {
         }
     }
 
+    /// Hidden button at the top of the screen which, if toggled, will give
+    /// human players much more probabilities of winning in territory battles
     Rectangle {
         id: btnCheat;
 
@@ -395,6 +411,8 @@ Rectangle {
         }
     }
 
+    /// This controls the game speed. If too fast, it becomes clear that CPU
+    /// struggles to keep up
     Slider {
         id: sldSpeed;
 
@@ -413,6 +431,7 @@ Rectangle {
         onValueChanged: hexGrid.gameSpeed = Math.pow(10, value);
     }
 
+    /// Label showing the game speed next to the control above
     Text {
         anchors.right: sldSpeed.left;
         anchors.rightMargin: 10;

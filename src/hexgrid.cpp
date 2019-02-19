@@ -9,8 +9,6 @@
 #include <QTime>
 #include <QElapsedTimer>
 
-const int HexGrid::DIRECTIONS[][2] = {{1,0},{0,1},{-1,1},{-1,0},{0,-1},{+1,-1}};
-
 HexGrid::HexGrid(QQuickItem *parent)
     : QQuickItem(parent)
 {
@@ -98,7 +96,8 @@ void HexGrid::initializeGrid()
         }
     }
 
-    //Until this point, the players have been regenerated, the hex grid too, but and it only needs to create the tertitoreis and asign hex cells to them
+    // Until this point, the players have been regenerated, the hex grid too,
+    // but and it only needs to create the tertitoreis and asign hex cells to them
 
     initMethodGrowth();
 
@@ -112,7 +111,7 @@ void HexGrid::initializeGrid()
         if (terr->cellCount() < 6) terr->owner()->removeTerritory(terr);
     }
 
-    //Adding initial dice for the players' territories
+    // Adding initial dice for the players' territories
     for (auto player : players_) player->addDice(territories_.size() * 15 / 10 / players_.size());
 
     // Emit signal that initializes the connected territories for each player
@@ -121,7 +120,8 @@ void HexGrid::initializeGrid()
         emit connTerrChanged(i, players_.at(i)->connectedTerritories());
     }
 
-    //Using set function instead of assigning the value to playerTurn_ directly because this will emit the corresponding signal too
+    // Using set function instead of assigning the value to playerTurn_ directly
+    // because this will emit the corresponding signal too
     setPlayerTurn(qrand() % players_.size());
 
     //qDebug() << "Elapsed time for initialization: " << timer.elapsed();
@@ -153,7 +153,7 @@ void HexGrid::setNumTerritories(int numTerritories)
 //The territories are uniformly created, however the boundary hexagons may be swapped to the adjacent territories
 void HexGrid::initMethodGrid()
 {
-    const auto size = 5;
+    constexpr auto size = 5;
 
     for (auto x = 0; x < gridWidth_; x++)
     {
@@ -358,6 +358,7 @@ void HexGrid::startAITurn()
     timer_.setSingleShot(true);
     timer_.start(static_cast<int>(AI_STEP_INTERVAL  / gameSpeed_));
 }
+
 QVector<bool> HexGrid::humanList() const
 {
     return humanList_;
@@ -390,9 +391,11 @@ void HexGrid::setCheatMode(bool cheatMode)
     cheatMode_ = cheatMode;
 }
 
-
 void HexGrid::nextAIStep()
 {
+    // Select an enemy territory randomly, under certain rules. When those rules
+    // determine that no enemy territory can be selected, finish the turn
+
     const auto player = players_.at(playerTurn_);
 
     const auto terrCount = player->territories().size();
@@ -411,8 +414,9 @@ void HexGrid::nextAIStep()
             auto neigh = terr->neighbours().at((nTerrBase + nTerrOffset) % nTerrCount);
             if (neigh->owner() == nullptr || neigh->owner() == player) continue;
 
-            //When no humans are left, the AI players may attack territories with one more dice
-            //int maxDice = humansLeft_ == 0 ? terr->numDice() + 1 : neigh->owner()->human() ? terr->numDice() : terr->numDice() - 1;
+            // When no humans are left, the AI players may attack territories with
+            // one more dice. This avoids stalemates
+            // int maxDice = humansLeft_ == 0 ? terr->numDice() + 1 : neigh->owner()->human() ? terr->numDice() : terr->numDice() - 1;
             auto maxDice = terr->numDice();
             if (maxDice != Territory::MAX_DICE) maxDice--; //Territories with 8 dice can attack other territories with 8 dice
 
@@ -429,7 +433,7 @@ void HexGrid::nextAIStep()
 
     }
 
-    //If no territory was attacked, finish the turn
+    // If no territory was attacked, finish the turn
     playingAnimation_ = false;
     timer_.disconnect();
     endTurn();

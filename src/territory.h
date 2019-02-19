@@ -69,9 +69,9 @@ public:
     void setSelected(bool selected);
 
     // Size of the dice, in pixels
-    static const int DICE_SIZE;
+    static constexpr int DICE_SIZE = 28;
 
-    static const int MAX_DICE;
+    static constexpr int MAX_DICE = 8;
 };
 
 #endif // TERRITORY_H

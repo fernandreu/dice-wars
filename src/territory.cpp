@@ -8,9 +8,6 @@
 #include <QPainter>
 #include <QtMath>
 
-const int Territory::DICE_SIZE = 28;
-const int Territory::MAX_DICE = 8;
-
 Territory::Territory(QQuickItem* parent): QQuickPaintedItem(parent)
 {
 }
@@ -22,8 +19,11 @@ void Territory::paint(QPainter *painter)
 
     const auto pixmap = owner_->dicePixmap();
 
-    const auto heightFactor = 0.54;   // When the dice are piled above each other, they don't need the full height to be shown
-    const auto widthFactor = 0.55;    // The same with the width when there are two piles
+    // When the dice are piled above each other, they don't need the full height to be shown
+    constexpr auto heightFactor = 0.54;
+
+    // The same with the width when there are two piles
+    constexpr auto widthFactor = 0.55;
 
     //Note: if there is only one pile of dice, it will not be centered. However, this is preferable for when the animation of adding dice is played in the future,
     //so that it does not suddenly swap the pile position when it switched form 1 to 2 piles

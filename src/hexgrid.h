@@ -56,7 +56,7 @@ class HexGrid : public QQuickItem
 
     QHash<QPair<int, int>, Hex *> map_;
 
-    static const int DIRECTIONS[][2];
+    static constexpr int DIRECTIONS[][2] = {{1,0},{0,1},{-1,1},{-1,0},{0,-1},{+1,-1}};
 
     void initMethodGrid();
     void initMethodGrowth();
@@ -70,16 +70,16 @@ class HexGrid : public QQuickItem
     QTimer timer_;
 
     /// The interval between increasing the amount of dice by one, in milliseconds
-    static const int GROWTH_INTERVAL = 30;
+    static constexpr int GROWTH_INTERVAL = 30;
 
     /// The interval to start an AI turn
-    static const int AI_STEP_INTERVAL = 500;
+    static constexpr int AI_STEP_INTERVAL = 500;
 
     /// The interval to select territories for the AI
-    static const int AI_SELECT_INTERVAL = 300;
+    static constexpr int AI_SELECT_INTERVAL = 300;
 
     /// The interval to process the attack
-    static const int AI_ATTACK_INTERVAL = 300;
+    static constexpr int AI_ATTACK_INTERVAL = 300;
 
     /// Factor to multiply all the intervals to speed up / slow the processes
     qreal gameSpeed_ = 1;

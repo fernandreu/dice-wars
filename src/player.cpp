@@ -54,31 +54,32 @@ void Player::setPlayerNumber(int playerNumber)
     if (playerNumber < 0) playerNumber = 0;
     playerNumber_ = playerNumber;
 
-    switch (playerNumber)  //Pre-defined player colors for players 0 to 7
+    // Pre-defined player colors for players 0 to 7
+    switch (playerNumber)
     {
         case 0:
-            color_ = QColor::fromRgb(213, 2, 2);   //red
+            color_ = QColor::fromRgb(213, 2, 2);   // red
             break;
         case 1:
-            color_ = QColor::fromRgb(2, 117, 2);   //dark green
+            color_ = QColor::fromRgb(2, 117, 2);   // dark green
             break;
         case 2:
-            color_ = QColor::fromRgb(245, 245, 15);   //yellow
+            color_ = QColor::fromRgb(245, 245, 15);   // yellow
             break;
         case 3:
-            color_ = QColor::fromRgb(2, 230, 230);   //cyan
+            color_ = QColor::fromRgb(2, 230, 230);   // cyan
             break;
         case 4:
-            color_ = QColor::fromRgb(117, 2, 230);   //purple
+            color_ = QColor::fromRgb(117, 2, 230);   // purple
             break;
         case 5:
-            color_ = QColor::fromRgb(255, 35, 150);   //pink
+            color_ = QColor::fromRgb(255, 35, 150);   // pink
             break;
         case 6:
-            color_ = QColor::fromRgb(117, 230, 2);   //light green
+            color_ = QColor::fromRgb(117, 230, 2);   // light green
             break;
         case 7:
-            color_ = QColor::fromRgb(230, 127, 2);   //orange
+            color_ = QColor::fromRgb(230, 127, 2);   // orange
             break;
         default:
             color_ = Qt::black;
@@ -88,15 +89,20 @@ void Player::setPlayerNumber(int playerNumber)
 
     for (auto i = 1; i <= 6; i++)
     {
-        pixmaps_.append(QSharedPointer<QPixmap>::create(QString(":/pixmaps/Player%1_Dice%2.png").arg(playerNumber).arg(i)));
+        auto path = QString(":/pixmaps/Player%1_Dice%2.png").arg(playerNumber).arg(i);
+        pixmaps_.append(QSharedPointer<QPixmap>::create(path));
     }
 }
 
 void Player::calculateConnTerr()
 {
-    //This is a list that contains the territories that have already been scanned when detecting the max contiguous number
+    // This is a list that contains the territories that have already been scanned
+    // when detecting the max contiguous number
     QList<Territory *> scanned;
 
+    // Capturing everything by reference is not usually a good idea; however, in this
+    // case the lambda function never leaves this method, so there is no chance for
+    // it to outlive this class
     std::function<int (Territory *)> scanTerr = [&](Territory *tScan)
     {
         auto result = 1; //There will be at least one contiguous territory: itself
@@ -122,6 +128,7 @@ void Player::calculateConnTerr()
         if (numConn > connectedTerritories_) connectedTerritories_ = numConn;
     }
 }
+
 bool Player::human() const
 {
     return human_;
@@ -149,8 +156,9 @@ bool Player::distributeDice(int numDice)
 {
     if (numDice > remainingDice_) numDice = remainingDice_;
 
-    //For each remaining dice, a random territory is chosen. If that territory has already 8 dice, it is skipped, otherwise a dice is added
-    //If all the territories have been skipped because they are all full, the process stops
+    //For each remaining dice, a random territory is chosen. If that territory has
+    // already 8 dice, it is skipped, otherwise a dice is added. If all the
+    // territories have been skipped because they are all full, the process stops
     const auto size = territories_.size();
 
     for (auto diceCount = 0; diceCount < numDice; diceCount++)

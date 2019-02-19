@@ -25,6 +25,8 @@ Window {
         source: "qrc:/Menu.qml";
     }
 
+    /// This holds different actions that the main menu or the game need to pass
+    /// around, especially when moving from one to the other
     Connections {
         id: connGame;
 
@@ -34,7 +36,12 @@ Window {
         onStart: {
             mainWindow.numPlayers = numPlayers;
             mainWindow.humanList = humanList;
-            contentLoader.setSource("qrc:/Game.qml", { "numPlayers": numPlayers, "humanList": humanList});
+            contentLoader.setSource(
+                        "qrc:/Game.qml",
+                        {
+                            "numPlayers": numPlayers,
+                            "humanList": humanList
+                        });
         }
 
         onRestart: {
@@ -43,7 +50,12 @@ Window {
 
         onReturnToMenu: {
             gameOverScreen.visible = false;
-            contentLoader.setSource("qrc:/Menu.qml", { "numPlayers": mainWindow.numPlayers, "humanList": mainWindow.humanList });
+            contentLoader.setSource(
+                        "qrc:/Menu.qml",
+                        {
+                            "numPlayers": mainWindow.numPlayers,
+                            "humanList": mainWindow.humanList
+                        });
         }
 
         onVictory: {
@@ -53,6 +65,7 @@ Window {
         }
     }
 
+    /// A small dialog in the middle showing who won the game
     Rectangle {
         id: gameOverScreen;
 

@@ -240,6 +240,7 @@ Rectangle {
         }
     }
 
+    /// This grid will gold each player number and its icon
     Grid {
         columns: 4;
         spacing: 50;

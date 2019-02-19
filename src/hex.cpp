@@ -104,7 +104,9 @@ void Hex::paint(QPainter *painter)
 
     painter->setPen(QPen(territory_->selected() ? Qt::red : Qt::black, 2));
     painter->setBrush(Qt::transparent);
-    for (auto i = 0; i < 6; i++) //TODO: possibly duplicated edges for two adjacent cells from different territories
+
+    // TODO: possibly duplicated edges for two adjacent cells from different territories
+    for (auto i = 0; i < 6; i++)
     {
         const auto neighbour = grid->neighbour(this, i);
         if (neighbour == nullptr || neighbour->territory() != territory_)

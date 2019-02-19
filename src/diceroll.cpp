@@ -13,14 +13,22 @@ void DiceRoll::paint(QPainter *painter)
     const auto centerX = 0.5 * width();
     const auto centerY = 0.5 * height();
 
-    static const auto DICE_SIZE = 30; //Size of each dice in pixels
-    static const auto DICE_SPACING = 5;
-    static const auto FIRST_SPACING = 10; //Spacing to add in the separation of the rolls for each player; total amount = 2*(FIRST_SPACING + DICE_SPACING)
+    /// Size of each dice in pixels
+    static constexpr auto DICE_SIZE = 30;
+
+    /// Spacing between dice in pixels
+    static constexpr auto DICE_SPACING = 5;
+
+    /// Spacing to add in the separation of the rolls for each player; total
+    /// amount = 2*(FIRST_SPACING + DICE_SPACING)
+    static constexpr auto FIRST_SPACING = 10;
 
     painter->setPen(QPen(Qt::black, 2));
     painter->setFont(QFont("Bavaria", 30, 5));
 
-    //Left part
+    // TODO: Refactor the code for left and right into a single block of code
+
+    // Left part
     if (!leftDice_.empty() && leftOwner_ != nullptr)
     {
         //Draw each dice
@@ -43,10 +51,10 @@ void DiceRoll::paint(QPainter *painter)
         );
     }
 
-    //Right part
+    // Right part
     if (!rightDice_.empty() && rightOwner_ != nullptr)
     {
-        //Draw each dice
+        // Draw each dice
         for (auto i = 0; i < rightDice_.size(); i++)
             painter->drawPixmap(
                         static_cast<int>(centerX) + FIRST_SPACING + (DICE_SIZE + DICE_SPACING)*i,
@@ -56,7 +64,7 @@ void DiceRoll::paint(QPainter *painter)
                         *rightOwner_->dicePixmap(rightDice_.at(i))
             );
 
-        //Draw final score
+        // Draw final score
         auto rightScore = 0;
         for (auto n : rightDice_) rightScore += n;
         painter->drawText(
